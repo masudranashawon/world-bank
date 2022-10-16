@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World Bank - World's most awesome online bank ever!</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon" />
+    <!-- Google font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <p class="welcome">Log in to get started !</p>
+      <img class="logo" src="./images/logo.png" alt="Spectra Bank logo" />
+      <form class="login">
+        <input
+          class="login-input login-input-username"
+          type="text"
+          placeholder="Username"
+        />
+        <input
+          class="login-input login-input-password"
+          type="password"
+          placeholder="Password"
+        />
+        <button class="login-btn">Log in &rarr;</button>
+      </form>
+    </nav>
+
+    <main class="app">
+      <div class="app-container">
+        <!-- Balance -->
+        <div class="balance">
+          <div>
+            <p class="balance-label">Current balance</p>
+            <p class="balance-date">
+              As of <span class="date">21/9/2022</span>
+            </p>
+          </div>
+          <p class="balance-value">1000$</p>
+        </div>
+
+        <!-- Movements -->
+        <div class="movements">
+          <div class="movements-row">
+            <div class="movements-type movements-type-deposit">5 deposit</div>
+            <div class="movements-date">5 days ago</div>
+            <div class="movements-value">1000$</div>
+          </div>
+          <div class="movements-row">
+            <div class="movements-type movements-type-withdrawal">
+              5 withdrawal
+            </div>
+            <div class="movements-date">21/9/2022</div>
+            <div class="movements-value">-1000$</div>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="summary">
+          <p class="summary-label">In</p>
+          <p class="summary-value summary-value-in">1000$</p>
+          <p class="summary-label">Out</p>
+          <p class="summary-value summary-value-out">1000$</p>
+          <p class="summary-label">Interest</p>
+          <p class="summary-value summary-value-interest">1000$</p>
+          <button class="btn-sort">Sort &downarrow;</button>
+        </div>
+
+        <!-- Transfers -->
+        <div class="operation operation-transfer">
+          <h2>Transfer money</h2>
+          <form class="form form-transfer">
+            <input class="form-input form-input-to" type="text" />
+            <input class="form-input form-input-amount" type="number" />
+            <button class="form-btn form-btn-transfer">&rarr;</button>
+            <label class="form-label">Transfer to</label>
+            <label class="form-label">Amount</label>
+          </form>
+        </div>
+
+        <!-- Loan -->
+        <div class="operation operation-loan">
+          <h2>Request loan</h2>
+          <form class="form form-loan">
+            <input class="form-input form-input-loan-amount" type="number" />
+            <button class="form-btn form-btn-loan">&rarr;</button>
+            <label class="form-label form-label-loan">Amount</label>
+          </form>
+        </div>
+
+        <!-- Close -->
+        <div class="operation operation-close">
+          <h2>Close account</h2>
+          <form class="form form-close">
+            <input class="form-input form-input-username" type="text" />
+            <input class="form-input form-input-password" type="password" />
+            <button class="form-btn form-btn-close">&rarr;</button>
+            <label class="form-label">Confirm username</label>
+            <label class="form-label">Confirm password</label>
+          </form>
+        </div>
+
+        <!-- Logout -->
+        <p class="logout-timer">
+          You will be logged out in <span class="timer">02:00</span>
+        </p>
+      </div>
+    </main>
+
+    <footer>
+      &copy; <span class="copyright-year">2022</span>,
+      <strong>World Bank</strong> by Masud Rana Shawon. All rights reserved.
+    </footer>
+    <!-- Script file -->
+    <script src="./script.js"></script>
+  </body>
+</html>
