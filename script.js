@@ -65,6 +65,26 @@ const accounts = [
     // currency: "EUR",
     // locale: "en-GB",
   },
+  {
+    owner: "Hriday Hrisikhes",
+    movements: [5000, 3400, -1500, -9000, -1000, -1000, 800, -300, 15000, -500],
+    interestRate: 1.1, // %
+    password: 1122,
+    // movementsDates: [
+    //   "2021-12-11T21:31:17.671Z",
+    //   "2021-12-27T07:42:02.184Z",
+    //   "2022-01-05T09:15:04.805Z",
+    //   "2022-02-14T10:17:24.687Z",
+    //   "2022-03-12T14:11:59.203Z",
+    //   "2022-05-16T17:01:17.392Z",
+    //   "2022-08-10T23:36:17.522Z",
+    //   "2022-09-03T12:51:31.491Z",
+    //   "2022-09-18T06:41:26.394Z",
+    //   "2022-09-21T08:11:36.276Z",
+    // ],
+    // currency: "EUR",
+    // locale: "en-GB",
+  },
 ];
 
 /////////////////////////////////////////////////////////////
@@ -100,7 +120,7 @@ const inputClosePassword = document.querySelector(".form-input-password");
 // Update UI
 /////////////////////////////////////////////////////////////////////
 
-function updateUi(currentAccount) {
+function updateUI(currentAccount) {
   displayMovements(currentAccount);
   displaySummary(currentAccount);
   displayBalance(currentAccount);
@@ -112,7 +132,6 @@ function updateUi(currentAccount) {
 
 function createUsernames(accounts) {
   accounts.forEach((account) => {
-    console.log(account);
     account.username = account.owner
       .toLowerCase()
       .split(" ")
@@ -134,11 +153,11 @@ btnLogin.addEventListener("click", function (e) {
   );
   if (currentAccount?.password === Number(inputLoginPassword.value)) {
     // Display UI and welcome
-    labelWelcome.innerHTML = `Welcome back, <span style="color:#0886f1">${currentAccount.owner
+    labelWelcome.innerHTML = `Welcome back, <span style="color:#42a8ff">${currentAccount.owner
       .split(" ")
       .at(0)}</span>`;
     app.style.opacity = "1";
-    updateUi(currentAccount);
+    updateUI(currentAccount);
   } else {
     // Hide UI and warning sms
     labelWelcome.innerHTML = `<span style="color:#ff000d">Ops, Login Faild!</span>`;
@@ -153,16 +172,18 @@ btnLogin.addEventListener("click", function (e) {
 // Movements
 /////////////////////////////////////////////////////////////////////
 
-function displayMovements(account) {
+function displayMovements(account, sort = false) {
   containerMovements.innerHTML = "";
-  const moves = account.movements;
+  const moves = sort
+    ? account.movements.slice(0).sort((a, b) => a - b)
+    : account.movements;
   moves.forEach((move, i) => {
     const transType = move > 0 ? "deposit" : "withdrawal";
     const movementsHtml = `
           <div class="movements-row">
             <div class="movements-type movements-type-${transType}">${
       i + 1
-    } deposit</div>
+    } ${transType}</div>
             <div class="movements-date">5 days ago</div>
             <div class="movements-value">${move}$</div>
           </div>`;
@@ -200,24 +221,26 @@ function displaySummary(account) {
 /////////////////////////////////////////////////////////////////////
 // Balance
 /////////////////////////////////////////////////////////////////////
-function displayBalance(account) {
-  const balance = account.movements.reduce((accu, move) => accu + move);
 
-  labelBalance.textContent = `${balance}$`;
+function displayBalance(account) {
+  account.balance = account.movements.reduce((accu, move) => accu + move);
+
+  labelBalance.textContent = `${account.balance}$`;
 }
 
 /////////////////////////////////////////////////////////////////////
 // Transfer
-/////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////
+
 btnTransfer.addEventListener("click", function (e) {
   e.preventDefault();
 
   const receiverAccount = accounts.find(
     (account) => account.username === inputTransferTo.value
   );
-  console.log(receiverAccount);
+
   const reciverAmount = Number(inputTransferAmount.value);
-  console.log(reciverAmount);
+
   // Clear fields
   inputTransferTo.value = inputTransferAmount.value = "";
   inputTransferAmount.blur();
@@ -228,13 +251,81 @@ btnTransfer.addEventListener("click", function (e) {
     currentAccount.username !== receiverAccount.username &&
     receiverAccount
   ) {
-    currentAccount.movements.push(-amount);
-    receiverAccount.movements.push(amount);
+    // Transfer moneyoperation-loan
+    currentAccount.movements.push(-reciverAmount);
+    receiverAccount.movements.push(reciverAmount);
     // Update UI
-    updateUi(currentAccount);
+    updateUI(currentAccount);
     // Show message
-    labelWelcome.textContent = "Transaction successful!";
+    labelWelcome.innerHTML = `Hurray,<span style="color:#00b79f"> Transaction successful!</span>`;
   } else {
-    labelWelcome.textContent = "Transaction failed!";
+    labelWelcome.innerHTML = `<span style="color:#ff000d"> Transaction failed!</span>`;
   }
+});
+
+// /////////////////////////////////////////////////////////////////////
+// // Loan
+// /////////////////////////////////////////////////////////////////////
+
+btnLoan.addEventListener("click", function (e) {
+  e.preventDefault();
+  const loanAmount = Number(inputLoanAmount.value);
+  if (
+    loanAmount > 0 &&
+    currentAccount.movements.some((move) => move >= loanAmount * 0.1)
+  ) {
+    // add positive movement into current account
+    currentAccount.movements.push(loanAmount);
+    //updateUI
+    updateUI(currentAccount);
+    // Show message
+    labelWelcome.innerHTML = `Hurray,<span style="color:#00b79f"> Loan Request successful!</span>`;
+  } else {
+    labelWelcome.innerHTML = `Damn,<span style="color:#ff000d"> Loan Request declined! </span>`;
+  }
+  // clear
+  inputLoanAmount.value = "";
+  inputLoanAmount.blur();
+});
+
+/////////////////////////////////////////////////////////////////////
+// Close account
+/////////////////////////////////////////////////////////////////////
+
+btnClose.addEventListener("click", function (e) {
+  e.preventDefault();
+  const closeUserName = inputCloseUsername.value;
+  const closeUserPassowrd = Number(inputClosePassword.value);
+  if (
+    currentAccount.username === closeUserName &&
+    currentAccount.password === closeUserPassowrd
+  ) {
+    const accountIndex = accounts.findIndex(
+      (account) => account.username === currentAccount.username
+    );
+    // delete
+    accounts.splice(accountIndex, 1);
+    // hide ui
+    app.style.opacity = 0;
+    // Show message
+    labelWelcome.innerHTML = `<span style="color:#00b79f">Account closed successfully </span>${currentAccount.owner
+      .toLowerCase()
+      .split(" ")
+      .at(0)}`;
+  } else {
+    labelWelcome.innerHTML = `<span style="color:#ff000d">Account close can not be done! </span>`;
+  }
+});
+
+///////////////////////////////////////////////////////////////////
+// sort
+////////////////////////////////////////////////////////////////
+
+let sortedMoves = false;
+
+btnSort.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  displayMovements(currentAccount, !sortedMoves);
+  sortedMoves = !sortedMoves;
 });

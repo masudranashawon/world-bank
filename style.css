@@ -52,7 +52,6 @@ nav {
 }
 
 .login-input:focus {
-  /* border-color: #ccc; */
   border-color: #1dafe0;
 }
 
