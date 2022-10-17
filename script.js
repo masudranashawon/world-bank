@@ -248,7 +248,7 @@ btnTransfer.addEventListener("click", function (e) {
   if (
     reciverAmount > 0 &&
     reciverAmount <= currentAccount.balance &&
-    currentAccount.username !== receiverAccount.username &&
+    currentAccount.username !== receiverAccount?.username &&
     receiverAccount
   ) {
     // Transfer moneyoperation-loan
