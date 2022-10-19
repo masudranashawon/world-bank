@@ -49,7 +49,7 @@ const accounts = [
     owner: 'Masud Rana Shawon',
     movements: [500, 340, -150, -900, -100, -1000, 800, -300, 1500, -500],
     interestRate: 1.1, // %
-    password: 999,
+    password: 9999,
     movementsDates: [
       '2021-12-11T21:31:17.671Z',
       '2021-12-27T07:42:02.184Z',
