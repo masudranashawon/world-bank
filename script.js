@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /////////////////////////////////////////////////////////////
 // Data
@@ -6,7 +6,7 @@
 
 const accounts = [
   {
-    owner: "Shohanur Rahman",
+    owner: 'Shohanur Rahman',
     movements: [2500, 500, -750, 1200, 3200, -1500, 500, 1200, -1750, 1800],
     interestRate: 1.5, // %
     password: 1234,
@@ -22,11 +22,11 @@ const accounts = [
     //   "2022-09-19T06:41:26.190Z",
     //   "2022-09-21T08:11:36.678Z",
     // ],
-    // currency: "USD",
-    // locale: "en-US",
+    currency: 'USD',
+    locale: 'en-US',
   },
   {
-    owner: "Sunerah Binte Ayesha",
+    owner: 'Sunerah Binte Ayesha',
     movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -300, 1500, -1850],
     interestRate: 1.3, // %
     password: 5678,
@@ -42,11 +42,11 @@ const accounts = [
     //   "2022-09-18T06:41:26.394Z",
     //   "2022-09-21T08:11:36.276Z",
     // ],
-    // currency: "EUR",
-    // locale: "en-GB",
+    currency: 'EUR',
+    locale: 'en-GB',
   },
   {
-    owner: "Masud Rana Shawon",
+    owner: 'Masud Rana Shawon',
     movements: [50, 34, -15, -90, -10, -100, 80, -30, 150, -50],
     interestRate: 1.1, // %
     password: 999,
@@ -62,11 +62,11 @@ const accounts = [
     //   "2022-09-18T06:41:26.394Z",
     //   "2022-09-21T08:11:36.276Z",
     // ],
-    // currency: "EUR",
-    // locale: "en-GB",
+    currency: 'BDT',
+    locale: 'bn-BD',
   },
   {
-    owner: "Hriday Hrisikhes",
+    owner: 'Hriday Hrisikhes',
     movements: [5000, 3400, -1500, -9000, -1000, -1000, 800, -300, 15000, -500],
     interestRate: 1.1, // %
     password: 1122,
@@ -82,8 +82,8 @@ const accounts = [
     //   "2022-09-18T06:41:26.394Z",
     //   "2022-09-21T08:11:36.276Z",
     // ],
-    // currency: "EUR",
-    // locale: "en-GB",
+    currency: 'JPY',
+    locale: 'ja-JP',
   },
 ];
 
@@ -91,30 +91,30 @@ const accounts = [
 // Elements
 /////////////////////////////////////////////////////////////
 
-const labelWelcome = document.querySelector(".welcome");
-const labelDate = document.querySelector(".date");
-const labelBalance = document.querySelector(".balance-value");
-const labelSumIn = document.querySelector(".summary-value-in");
-const labelSumOut = document.querySelector(".summary-value-out");
-const labelSumInterest = document.querySelector(".summary-value-interest");
-const labelTimer = document.querySelector(".timer");
+const labelWelcome = document.querySelector('.welcome');
+const labelDate = document.querySelector('.date');
+const labelBalance = document.querySelector('.balance-value');
+const labelSumIn = document.querySelector('.summary-value-in');
+const labelSumOut = document.querySelector('.summary-value-out');
+const labelSumInterest = document.querySelector('.summary-value-interest');
+const labelTimer = document.querySelector('.timer');
 
-const app = document.querySelector(".app");
-const containerMovements = document.querySelector(".movements");
+const app = document.querySelector('.app');
+const containerMovements = document.querySelector('.movements');
 
-const btnLogin = document.querySelector(".login-btn");
-const btnTransfer = document.querySelector(".form-btn-transfer");
-const btnLoan = document.querySelector(".form-btn-loan");
-const btnClose = document.querySelector(".form-btn-close");
-const btnSort = document.querySelector(".btn-sort");
+const btnLogin = document.querySelector('.login-btn');
+const btnTransfer = document.querySelector('.form-btn-transfer');
+const btnLoan = document.querySelector('.form-btn-loan');
+const btnClose = document.querySelector('.form-btn-close');
+const btnSort = document.querySelector('.btn-sort');
 
-const inputLoginUsername = document.querySelector(".login-input-username");
-const inputLoginPassword = document.querySelector(".login-input-password");
-const inputTransferTo = document.querySelector(".form-input-to");
-const inputTransferAmount = document.querySelector(".form-input-amount");
-const inputLoanAmount = document.querySelector(".form-input-loan-amount");
-const inputCloseUsername = document.querySelector(".form-input-username");
-const inputClosePassword = document.querySelector(".form-input-password");
+const inputLoginUsername = document.querySelector('.login-input-username');
+const inputLoginPassword = document.querySelector('.login-input-password');
+const inputTransferTo = document.querySelector('.form-input-to');
+const inputTransferAmount = document.querySelector('.form-input-amount');
+const inputLoanAmount = document.querySelector('.form-input-loan-amount');
+const inputCloseUsername = document.querySelector('.form-input-username');
+const inputClosePassword = document.querySelector('.form-input-password');
 
 /////////////////////////////////////////////////////////////////////
 // Update UI
@@ -127,6 +127,17 @@ function updateUI(currentAccount) {
 }
 
 /////////////////////////////////////////////////////////////////////
+//formatting currency
+/////////////////////////////////////////////////////////////////////
+
+function formateCurrency(value, locale, currency) {
+  return Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
+}
+
+/////////////////////////////////////////////////////////////////////
 // Username
 /////////////////////////////////////////////////////////////////////
 
@@ -134,9 +145,9 @@ function createUsernames(accounts) {
   accounts.forEach((account) => {
     account.username = account.owner
       .toLowerCase()
-      .split(" ")
+      .split(' ')
       .map((uNameWord) => uNameWord.at(0))
-      .join("");
+      .join('');
   });
 }
 createUsernames(accounts);
@@ -146,25 +157,29 @@ createUsernames(accounts);
 /////////////////////////////////////////////////////////////////////
 
 let currentAccount;
-btnLogin.addEventListener("click", function (e) {
+btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
   currentAccount = accounts.find(
     (account) => account.username == inputLoginUsername.value
   );
   if (currentAccount?.password === Number(inputLoginPassword.value)) {
-    // Display UI and welcome
-    labelWelcome.innerHTML = `Welcome back, <span style="color:#42a8ff">${currentAccount.owner
-      .split(" ")
-      .at(0)}</span>`;
-    app.style.opacity = "1";
-    updateUI(currentAccount);
+    setTimeout(() => {
+      // Display UI and welcome
+      labelWelcome.innerHTML = `Welcome back, <span style="color:#42a8ff">${currentAccount.owner
+        .split(' ')
+        .at(0)}</span>`;
+      app.style.opacity = '1';
+      updateUI(currentAccount);
+    }, 2000);
   } else {
-    // Hide UI and warning sms
-    labelWelcome.innerHTML = `<span style="color:#ff000d">Ops, Login Faild!</span>`;
-    app.style.opacity = "0";
+    setTimeout(() => {
+      // Hide UI and warning sms
+      labelWelcome.innerHTML = `<span style="color:#ff000d">Ops, Login Faild!</span>`;
+      app.style.opacity = '0';
+    }, 2000);
   }
   // Clear fields
-  inputLoginUsername.value = inputLoginPassword.value = "";
+  inputLoginUsername.value = inputLoginPassword.value = '';
   inputLoginPassword.blur();
 });
 
@@ -173,21 +188,26 @@ btnLogin.addEventListener("click", function (e) {
 /////////////////////////////////////////////////////////////////////
 
 function displayMovements(account, sort = false) {
-  containerMovements.innerHTML = "";
+  containerMovements.innerHTML = '';
   const moves = sort
     ? account.movements.slice(0).sort((a, b) => a - b)
     : account.movements;
   moves.forEach((move, i) => {
-    const transType = move > 0 ? "deposit" : "withdrawal";
+    const transType = move > 0 ? 'deposit' : 'withdrawal';
+    const formatedMove = formateCurrency(
+      move,
+      account.locale,
+      account.currency
+    );
     const movementsHtml = `
           <div class="movements-row">
             <div class="movements-type movements-type-${transType}">${
       i + 1
     } ${transType}</div>
             <div class="movements-date">5 days ago</div>
-            <div class="movements-value">${move}$</div>
+            <div class="movements-value">${formatedMove}</div>
           </div>`;
-    containerMovements.insertAdjacentHTML("afterbegin", movementsHtml);
+    containerMovements.insertAdjacentHTML('afterbegin', movementsHtml);
   });
 }
 
@@ -201,13 +221,21 @@ function displaySummary(account) {
     .filter((move) => move > 0)
     .reduce((accu, deposit) => accu + deposit, 0);
 
-  labelSumIn.textContent = `${incomes}$`;
+  labelSumIn.textContent = formateCurrency(
+    incomes,
+    account.locale,
+    account.currency
+  );
   //Outcomes
   const outcomes = account.movements
     .filter((move) => move < 0)
     .reduce((accu, withdrawal) => accu + withdrawal, 0);
 
-  labelSumOut.textContent = `${Math.abs(outcomes)}$`;
+  labelSumOut.textContent = formateCurrency(
+    Math.abs(outcomes),
+    account.locale,
+    account.currency
+  );
   // Interest
   const interest = account.movements
     .filter((move) => move > 0)
@@ -215,7 +243,11 @@ function displaySummary(account) {
     .filter((interest) => interest >= 1)
     .reduce((accu, interest) => accu + interest);
 
-  labelSumInterest.textContent = `${interest}$`;
+  labelSumInterest.textContent = formateCurrency(
+    interest,
+    account.locale,
+    account.currency
+  );
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -224,15 +256,18 @@ function displaySummary(account) {
 
 function displayBalance(account) {
   account.balance = account.movements.reduce((accu, move) => accu + move);
-
-  labelBalance.textContent = `${account.balance}$`;
+  labelBalance.textContent = formateCurrency(
+    account.balance,
+    account.locale,
+    account.currency
+  );
 }
 
 /////////////////////////////////////////////////////////////////////
 // Transfer
 // /////////////////////////////////////////////////////////////////////
 
-btnTransfer.addEventListener("click", function (e) {
+btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
 
   const receiverAccount = accounts.find(
@@ -242,7 +277,7 @@ btnTransfer.addEventListener("click", function (e) {
   const reciverAmount = Number(inputTransferAmount.value);
 
   // Clear fields
-  inputTransferTo.value = inputTransferAmount.value = "";
+  inputTransferTo.value = inputTransferAmount.value = '';
   inputTransferAmount.blur();
 
   if (
@@ -251,15 +286,19 @@ btnTransfer.addEventListener("click", function (e) {
     currentAccount.username !== receiverAccount?.username &&
     receiverAccount
   ) {
-    // Transfer moneyoperation-loan
-    currentAccount.movements.push(-reciverAmount);
-    receiverAccount.movements.push(reciverAmount);
-    // Update UI
-    updateUI(currentAccount);
-    // Show message
-    labelWelcome.innerHTML = `Hurray,<span style="color:#00b79f"> Transaction successful!</span>`;
+    setTimeout(() => {
+      // Transfer moneyoperation-loan
+      currentAccount.movements.push(-reciverAmount);
+      receiverAccount.movements.push(reciverAmount);
+      // Update UI
+      updateUI(currentAccount);
+      // Show message
+      labelWelcome.innerHTML = `Hurray,<span style="color:#00b79f"> Transaction successful!</span>`;
+    }, 1500);
   } else {
-    labelWelcome.innerHTML = `<span style="color:#ff000d"> Transaction failed!</span>`;
+    setTimeout(() => {
+      labelWelcome.innerHTML = `<span style="color:#ff000d"> Transaction failed!</span>`;
+    }, 1500);
   }
 });
 
@@ -267,24 +306,28 @@ btnTransfer.addEventListener("click", function (e) {
 // // Loan
 // /////////////////////////////////////////////////////////////////////
 
-btnLoan.addEventListener("click", function (e) {
+btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
   const loanAmount = Number(inputLoanAmount.value);
   if (
     loanAmount > 0 &&
     currentAccount.movements.some((move) => move >= loanAmount * 0.1)
   ) {
-    // add positive movement into current account
-    currentAccount.movements.push(loanAmount);
-    //updateUI
-    updateUI(currentAccount);
-    // Show message
-    labelWelcome.innerHTML = `Hurray,<span style="color:#00b79f"> Loan Request successful!</span>`;
+    setTimeout(() => {
+      // add positive movement into current account
+      currentAccount.movements.push(loanAmount);
+      //updateUI
+      updateUI(currentAccount);
+      // Show message
+      labelWelcome.innerHTML = `Hurray,<span style="color:#00b79f"> Loan Request successful!</span>`;
+    }, 1500);
   } else {
-    labelWelcome.innerHTML = `Damn,<span style="color:#ff000d"> Loan Request declined! </span>`;
+    setTimeout(() => {
+      labelWelcome.innerHTML = `Damn,<span style="color:#ff000d"> Loan Request declined! </span>`;
+    }, 1500);
   }
   // clear
-  inputLoanAmount.value = "";
+  inputLoanAmount.value = '';
   inputLoanAmount.blur();
 });
 
@@ -292,7 +335,7 @@ btnLoan.addEventListener("click", function (e) {
 // Close account
 /////////////////////////////////////////////////////////////////////
 
-btnClose.addEventListener("click", function (e) {
+btnClose.addEventListener('click', function (e) {
   e.preventDefault();
   const closeUserName = inputCloseUsername.value;
   const closeUserPassowrd = Number(inputClosePassword.value);
@@ -300,21 +343,29 @@ btnClose.addEventListener("click", function (e) {
     currentAccount.username === closeUserName &&
     currentAccount.password === closeUserPassowrd
   ) {
-    const accountIndex = accounts.findIndex(
-      (account) => account.username === currentAccount.username
-    );
-    // delete
-    accounts.splice(accountIndex, 1);
-    // hide ui
-    app.style.opacity = 0;
-    // Show message
-    labelWelcome.innerHTML = `<span style="color:#00b79f">Account closed successfully </span>${currentAccount.owner
-      .toLowerCase()
-      .split(" ")
-      .at(0)}`;
+    setTimeout(() => {
+      const accountIndex = accounts.findIndex(
+        (account) => account.username === currentAccount.username
+      );
+      // delete
+      accounts.splice(accountIndex, 1);
+      // hide ui
+      app.style.opacity = 0;
+      // Show message
+      labelWelcome.innerHTML = `<span style="color:#00b79f">Account closed successfully </span>${currentAccount.owner
+        .toLowerCase()
+        .split(' ')
+        .at(0)}`;
+    }, 1500);
   } else {
-    labelWelcome.innerHTML = `<span style="color:#ff000d">Account close can not be done! </span>`;
+    setTimeout(() => {
+      labelWelcome.innerHTML = `<span style="color:#ff000d">Account close can not be done! </span>`;
+    }, 1500);
   }
+  // Clear fields
+  inputCloseUsername.value = inputClosePassword.value = '';
+  inputCloseUsername.blur();
+  inputClosePassword.blur();
 });
 
 ///////////////////////////////////////////////////////////////////
@@ -323,9 +374,11 @@ btnClose.addEventListener("click", function (e) {
 
 let sortedMoves = false;
 
-btnSort.addEventListener("click", function (e) {
+btnSort.addEventListener('click', function (e) {
   e.preventDefault();
 
-  displayMovements(currentAccount, !sortedMoves);
-  sortedMoves = !sortedMoves;
+  setTimeout(() => {
+    displayMovements(currentAccount, !sortedMoves);
+    sortedMoves = !sortedMoves;
+  }, 500);
 });
