@@ -1,17 +1,17 @@
-## World Bank - Login Details
+# The World Bank - A Modern Bank Application
 
-### Account 1:
+## Features:
 
-Username: sr, Password: 1234
+1. Users can login in this bank
+2. Users can perform various banking activities
 
-### Account 2:
+## Login Details:
 
-Username: sba, Password: 5678
+1. Account 1 [Username: sr, Password: 1234]
+2. Account 2 [Username: sba, Password: 5678]
+3. Account 3 [Username: mrs, Password: 9999]
+4. Account 4 [Username: hh, Password: 1122]
 
-### Account 3:
+## Live Link: https://the-world-bank.netlify.app/
 
-Username: mrs, Password: 9999
-
-### Account 4:
-
-Username: hh, Password: 1122
+## Thanks for watching this repo! Take care.
